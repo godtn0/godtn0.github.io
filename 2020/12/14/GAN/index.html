@@ -23,16 +23,16 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.1.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="오늘 다룰 논문은 생성 모델에서의 한 획을 그은 Generative Adversarial Nets(GAN)이다. 이미 많은 글에서 GAN에 대해 쉽게 다루었기 때문에, 오늘은 좀 더 학문적으로 GAN을 이해해보는 시간을 가져보자. **** Generative Models (생성모델) 먼저 생성 모델이 무엇일까? 생성 모델이란 우리가 알지 못 하는 확률">
+<meta name="description" content="오늘 다룰 논문은 생성 모델에서의 한 획을 그은 Generative Adversarial Nets(GAN)이다. 이미 많은 글에서 GAN에 대해 쉽게 다루었기 때문에, 오늘은 좀 더 학문적으로 GAN을 이해해보는 시간을 가져보자.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Generative Adversarial Nets">
 <meta property="og:url" content="http://example.com/2020/12/14/GAN/index.html">
 <meta property="og:site_name" content="Andu&#39;s Blog">
-<meta property="og:description" content="오늘 다룰 논문은 생성 모델에서의 한 획을 그은 Generative Adversarial Nets(GAN)이다. 이미 많은 글에서 GAN에 대해 쉽게 다루었기 때문에, 오늘은 좀 더 학문적으로 GAN을 이해해보는 시간을 가져보자. **** Generative Models (생성모델) 먼저 생성 모델이 무엇일까? 생성 모델이란 우리가 알지 못 하는 확률">
+<meta property="og:description" content="오늘 다룰 논문은 생성 모델에서의 한 획을 그은 Generative Adversarial Nets(GAN)이다. 이미 많은 글에서 GAN에 대해 쉽게 다루었기 때문에, 오늘은 좀 더 학문적으로 GAN을 이해해보는 시간을 가져보자.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2020/12/14/GAN/Universality_of_Uniform.png">
 <meta property="article:published_time" content="2020-12-14T05:25:08.000Z">
-<meta property="article:modified_time" content="2020-12-14T06:22:03.727Z">
+<meta property="article:modified_time" content="2020-12-14T06:29:32.685Z">
 <meta property="article:author" content="Andu">
 <meta property="article:tag" content="GAN">
 <meta name="twitter:card" content="summary">
@@ -281,7 +281,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2020-12-14 14:25:08 / Modified: 15:22:03" itemprop="dateCreated datePublished" datetime="2020-12-14T14:25:08+09:00">2020-12-14</time>
+      <time title="Created: 2020-12-14 14:25:08 / Modified: 15:29:32" itemprop="dateCreated datePublished" datetime="2020-12-14T14:25:08+09:00">2020-12-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -317,7 +317,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>오늘 다룰 논문은 생성 모델에서의 한 획을 그은 <strong>Generative Adversarial Nets</strong>(<strong>GAN</strong>)이다. 이미 많은 글에서 <strong>GAN</strong>에 대해 쉽게 다루었기 때문에, 오늘은 좀 더 학문적으로 <strong>GAN</strong>을 이해해보는 시간을 가져보자. ****</p>
+        <p>오늘 다룰 논문은 생성 모델에서의 한 획을 그은 <strong>Generative Adversarial Nets</strong>(<strong>GAN</strong>)이다. 이미 많은 글에서 <strong>GAN</strong>에 대해 쉽게 다루었기 때문에, 오늘은 좀 더 학문적으로 <strong>GAN</strong>을 이해해보는 시간을 가져보자. <a id="more"></a></p>
+<hr />
 <h1 id="generative-models-생성모델">Generative Models (생성모델)</h1>
 <p>먼저 생성 모델이 무엇일까? <strong>생성 모델</strong>이란 우리가 알지 못 하는 확률 분포를 가진 대상 분포에서 추출(sampling)한 것과 같이 데이터를 만들어내는 모델을 말한다. 여기서 핵심은 우리가 <strong>모르는 분포</strong>이다. 우선 우리가 알고 있는 분포를 가지고 sampling 하는 방법을 알아보자.</p>
 <h1 id="universality-of-uniform">Universality of Uniform</h1>
