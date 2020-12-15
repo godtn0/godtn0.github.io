@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://example.com/2020/12/14/GAN/gaussian_cdf.png">
 <meta property="og:image" content="http://example.com/2020/12/14/GAN/GAN_process.png">
 <meta property="article:published_time" content="2020-12-14T05:25:08.000Z">
-<meta property="article:modified_time" content="2020-12-15T02:11:29.493Z">
+<meta property="article:modified_time" content="2020-12-15T02:36:42.097Z">
 <meta property="article:author" content="Andu">
 <meta property="article:tag" content="GAN">
 <meta name="twitter:card" content="summary">
@@ -178,7 +178,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#generative-models-%EC%83%9D%EC%84%B1%EB%AA%A8%EB%8D%B8"><span class="nav-number">1.</span> <span class="nav-text">Generative Models (생성모델)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#universality-of-uniform"><span class="nav-number">2.</span> <span class="nav-text">Universality of Uniform</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gan"><span class="nav-number">3.</span> <span class="nav-text">GAN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#adversarial-loss"><span class="nav-number">4.</span> <span class="nav-text">Adversarial Loss</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#generative-models-%EC%83%9D%EC%84%B1%EB%AA%A8%EB%8D%B8"><span class="nav-number">1.</span> <span class="nav-text">Generative Models (생성모델)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#universality-of-uniform"><span class="nav-number">2.</span> <span class="nav-text">Universality of Uniform</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gan"><span class="nav-number">3.</span> <span class="nav-text">GAN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#adversarial-loss"><span class="nav-number">4.</span> <span class="nav-text">Adversarial Loss</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#optimal-solution-of-adversarial-loss"><span class="nav-number">5.</span> <span class="nav-text">Optimal Solution of Adversarial Loss</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -285,7 +285,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-15 11:11:29" itemprop="dateModified" datetime="2020-12-15T11:11:29+09:00">2020-12-15</time>
+        <time title="Modified: 2020-12-15 11:36:42" itemprop="dateModified" datetime="2020-12-15T11:36:42+09:00">2020-12-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -339,9 +339,14 @@
 <h1 id="adversarial-loss">Adversarial Loss</h1>
 <p>그래서 <strong><em>Generative Adversarial Nets</em></strong> 논문에서 구체적으로 어떤 방식을 통해 <strong>CDF</strong>의 역함수 <span class="math inline">\(F^{-1}(X)\)</span>를 추적하는지를 살펴보자. 그 중심에 바로 <strong>Adversarial Loss</strong>가 존재한다.</p>
 <p><span class="math display">\[\begin{equation} \min_{G}\max_{D} V(D,G) = \mathbb{E}_{x\sim p_{data}(x)}[log D(x)] + \mathbb{E}_{z\sim p_{z}(z)}[log( 1-D(G(z)) )] \end{equation}\]</span></p>
-<p>위 식은 <strong><em>Generative Adversarial Nets</em></strong>에서 설정한 objective function이다. 해당 식의 구조를 잠깐 살펴보자. <strong>G</strong>는 <strong>Generator</strong>를 뜻하며 <strong>D</strong>는 <strong>Discriminator</strong>를 뜻한다. 결국 우리는 두 가지의 function을 neural network로 optimize하는데, <strong>G</strong>는 우리가 원하는 분포의 <strong>CDF</strong>의 역함수 <span class="math inline">\(F^{-1}(X)\)</span>를, <strong>D</strong>는 입력 변수가 실제 분포에서 sample됐는지 <strong>G</strong>에 의해 생성된 값인지를 구분하도록 한다.</p>
-<p>그렇다면 위의 <strong>Adversarial Loss</strong>를 optimize하면 정말 우리가 원하는 <span class="math inline">\(G = F^{-1}\)</span>가 될 수 있는지 수학적으로 분석해보자.</p>
-<p><span class="math display">\[V(G,D) = \displaystyle\int_{x}p_{data}(x)log(D(x))dx+\displaystyle\int_{z}p_{z}(z)log(1-D(G(z)))dz\]</span> <span class="math display">\[ = \displaystyle\int_{x}p_{data}(x)log(D(x)) + p_{g}(x)log(1-D(x)dx\]</span></p>
+<p>위 식은 <strong><em>Generative Adversarial Nets</em></strong>에서 설정한 objective function이다. 해당 식의 구조를 잠깐 살펴보자. <strong>G</strong>는 <strong>Generator</strong>를 뜻하며 <strong>D</strong>는 <strong>Discriminator</strong>를 뜻한다. 결국 우리는 두 가지의 function을 neural network로 optimize하는데, <strong>G</strong>는 우리가 원하는 분포의 <strong>CDF</strong>의 역함수 <span class="math inline">\(F^{-1}(X)\)</span>를, <strong>D</strong>는 입력 변수가 실제 분포에서 sample됐는지 <strong>G</strong>에 의해 생성된 값인지를 구분하도록 한다. 그렇다면 위의 <strong>Adversarial Loss</strong>를 optimize하면 정말 우리가 원하는 <span class="math inline">\(G = F^{-1}\)</span>가 될 수 있는지 수학적으로 분석해보자.</p>
+<h1 id="optimal-solution-of-adversarial-loss">Optimal Solution of Adversarial Loss</h1>
+<p>우선 <span class="math inline">\(V(G,D)\)</span> 를 기대값 정의에 의해서 다음과 같이 적분식으로 고쳐 쓸 수 있다.</p>
+<p><span class="math display">\[\begin{equation} V(G,D) = \displaystyle\int_{x}p_{data}(x)log(D(x))dx+\displaystyle\int_{z}p_{z}(z)log(1-D(G(z)))dz \end{equation}\]</span></p>
+<p>여기서 <span class="math inline">\(G\)</span>는 어떤 <strong>CDF</strong>의 역함수라고 할 수 있다. 이때, 이 <strong>CDF</strong>를 <span class="math inline">\(F\)</span>라 두면 <span class="math display">\[\begin{equation} G(z) = F^{-1}(z) = x\end{equation}\]</span> 으로 쓸 수 있다. 식 (3)을 좀 정리해보면,</p>
+<p><span class="math display">\[F^{-1}(z) = x\]</span> <span class="math display">\[\begin{equation}z = F(x)\end{equation}\]</span> 식 (4)를 양변 미분하면, <span class="math display">\[\begin{equation}dz = F^{&#39;}(x)dx = p_{g}(x)dx\end{equation}\]</span></p>
+<p>식 (5)를 이용하여 식 (2)에서의 오른쪽 적분식에 <span class="math inline">\(z\)</span>를 <span class="math inline">\(x\)</span>로 치환하면, 우리가 원하는 식 (6)을 다음과 같이 얻어낼 수 있다. <span class="math display">\[\begin{equation} V(G,D) = \displaystyle\int_{x}p_{data}(x)log(D(x)) + p_{g}(x)log(1-D(x)dx \end{equation}\]</span></p>
+<p>이제 각각 <span class="math inline">\(D\)</span>와 <span class="math inline">\(G\)</span>에 대해서 식 (6)을 순차적으로 <span class="math inline">\(maximize\)</span>, <span class="math inline">\(minimize\)</span> 했을 때 <span class="math inline">\(G\)</span>에 대한 <span class="math inline">\(x\)</span>의 분포가 <span class="math inline">\(p_{g}(x) = p_{data}(x)\)</span>를 만족함을 보이자.</p>
 
     </div>
 
