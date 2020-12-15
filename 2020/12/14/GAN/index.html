@@ -34,9 +34,10 @@
 <meta property="og:image" content="http://example.com/2020/12/14/GAN/gaussian_cdf.png">
 <meta property="og:image" content="http://example.com/2020/12/14/GAN/GAN_process.png">
 <meta property="article:published_time" content="2020-12-14T05:25:08.000Z">
-<meta property="article:modified_time" content="2020-12-15T02:36:42.097Z">
+<meta property="article:modified_time" content="2020-12-15T04:37:59.049Z">
 <meta property="article:author" content="Andu">
 <meta property="article:tag" content="GAN">
+<meta property="article:tag" content="Computer Vision">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/12/14/GAN/GAN_person_and_all.png">
 
@@ -178,7 +179,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#generative-models-%EC%83%9D%EC%84%B1%EB%AA%A8%EB%8D%B8"><span class="nav-number">1.</span> <span class="nav-text">Generative Models (생성모델)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#universality-of-uniform"><span class="nav-number">2.</span> <span class="nav-text">Universality of Uniform</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gan"><span class="nav-number">3.</span> <span class="nav-text">GAN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#adversarial-loss"><span class="nav-number">4.</span> <span class="nav-text">Adversarial Loss</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#optimal-solution-of-adversarial-loss"><span class="nav-number">5.</span> <span class="nav-text">Optimal Solution of Adversarial Loss</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#generative-models-%EC%83%9D%EC%84%B1%EB%AA%A8%EB%8D%B8"><span class="nav-number">1.</span> <span class="nav-text">Generative Models (생성모델)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#universality-of-uniform"><span class="nav-number">2.</span> <span class="nav-text">Universality of Uniform</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gan"><span class="nav-number">3.</span> <span class="nav-text">GAN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#adversarial-loss"><span class="nav-number">4.</span> <span class="nav-text">Adversarial Loss</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#optimal-solution-of-adversarial-loss"><span class="nav-number">5.</span> <span class="nav-text">Optimal Solution of Adversarial Loss</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -204,7 +205,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -285,7 +286,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-15 11:36:42" itemprop="dateModified" datetime="2020-12-15T11:36:42+09:00">2020-12-15</time>
+        <time title="Modified: 2020-12-15 13:37:59" itemprop="dateModified" datetime="2020-12-15T13:37:59+09:00">2020-12-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -346,7 +347,15 @@
 <p>여기서 <span class="math inline">\(G\)</span>는 어떤 <strong>CDF</strong>의 역함수라고 할 수 있다. 이때, 이 <strong>CDF</strong>를 <span class="math inline">\(F\)</span>라 두면 <span class="math display">\[\begin{equation} G(z) = F^{-1}(z) = x\end{equation}\]</span> 으로 쓸 수 있다. 식 (3)을 좀 정리해보면,</p>
 <p><span class="math display">\[F^{-1}(z) = x\]</span> <span class="math display">\[\begin{equation}z = F(x)\end{equation}\]</span> 식 (4)를 양변 미분하면, <span class="math display">\[\begin{equation}dz = F^{&#39;}(x)dx = p_{g}(x)dx\end{equation}\]</span></p>
 <p>식 (5)를 이용하여 식 (2)에서의 오른쪽 적분식에 <span class="math inline">\(z\)</span>를 <span class="math inline">\(x\)</span>로 치환하면, 우리가 원하는 식 (6)을 다음과 같이 얻어낼 수 있다. <span class="math display">\[\begin{equation} V(G,D) = \displaystyle\int_{x}p_{data}(x)log(D(x)) + p_{g}(x)log(1-D(x)dx \end{equation}\]</span></p>
-<p>이제 각각 <span class="math inline">\(D\)</span>와 <span class="math inline">\(G\)</span>에 대해서 식 (6)을 순차적으로 <span class="math inline">\(maximize\)</span>, <span class="math inline">\(minimize\)</span> 했을 때 <span class="math inline">\(G\)</span>에 대한 <span class="math inline">\(x\)</span>의 분포가 <span class="math inline">\(p_{g}(x) = p_{data}(x)\)</span>를 만족함을 보이자.</p>
+<p>이제 각각 <span class="math inline">\(D\)</span> 와 <span class="math inline">\(G\)</span> 에 대해서 식 (6)을 순차적으로 <span class="math inline">\(maximize\)</span>, <span class="math inline">\(minimize\)</span> 했을 때 <span class="math inline">\(G\)</span> 에 대한 <span class="math inline">\(x\)</span> 의 분포가 <span class="math inline">\(p_{g}(x) = p_{data}(x)\)</span>를 만족함을 보이자.</p>
+<p>우선 <span class="math inline">\(D\)</span> 에 대해서 <span class="math inline">\(maximize\)</span> 해보자. <span class="math inline">\(y\to a\,log(y) + b\,log(1-y)\)</span> 의 형태를 가진 모든 실수 함수는 <span class="math inline">\([0,1]\)</span>에서 <span class="math inline">\(y=\frac{a}{a+b}\)</span> 일 때 최대값을 갖는다. 따라서 <span class="math inline">\(V(G,D)\)</span>가 최대값을 갖는 <span class="math inline">\(D\)</span> 는 다음과 같다. <span class="math display">\[\begin{equation} D^{*}(x) = \displaystyle\frac{p_{data}(x)}{p_{data}(x)+p_{g}(x)} \end{equation}\]</span></p>
+<p>이제 마저 <span class="math inline">\(G\)</span> 에 대해서 <span class="math inline">\(minimize\)</span> 해보자. 우리는 <span class="math inline">\(\displaystyle\max_{D}V(G, D)\)</span>를 만족하는 <span class="math inline">\(D\)</span>를 구했기 때문에 <span class="math inline">\(\displaystyle\\min_{G} \max_{D} V(G,D)\)</span>에 해당 <span class="math inline">\(D\)</span> 를 대입하므로써 <span class="math inline">\(G\)</span> 에 대한 식 <span class="math inline">\(C(G) = \displaystyle\\max_{D} V(G,D)\)</span>를 표현할 수 있다. 즉, 아래 식에 대해서 <span class="math inline">\(minimize\)</span>하는 것으로 문제를 바꿀 수 있다. <span class="math display">\[\displaystyle C(G) = \max_{D}V(G,D)\]</span> <span class="math display">\[ =\mathbb{E}_{x \sim p_{data}}[logD^{*}_{G}(x)] + \mathbb{E}_{z \sim p_{z}}[log(1 - D^{*}_{G}(G(z)))]\]</span> <span class="math display">\[ = \mathbb{E}_{x \sim p_{data}}[logD^{*}_{G}(x)] + \mathbb{E}_{x \sim p_{g}}[log(1 - D^{*}_{G}(x))]\]</span> <span class="math display">\[\begin{equation} = \mathbb{E}_{x \sim p_{data}}[log\frac{p_{data}(x)}{p_{data}(x)+p_{g}(x)}] +\mathbb{E}_{x \sim p_{g}}[log\frac{p_{g}(x)}{p_{data}(x)+p_{g}(x)}] \end{equation}\]</span></p>
+<p>여기서 우리는 <span class="math inline">\(KL-Divergence\)</span> 와 <span class="math inline">\(JS-Divergence\)</span> 식을 가져와서 위 식 (8)을 고칠 수 있다. 우선 <span class="math inline">\(KL-Divergence\)</span> 식과 <span class="math inline">\(JS-Divergence\)</span> 식은 다음과 같다. <span class="math display">\[ D_{KL}(p||q) = \mathbb{E}_{x \sim p_{x}}[log \frac{p(x)}{q(x)}] \]</span> <span class="math display">\[ \begin{equation} JSD(p||q) = \frac{1}{2}D_{KL}(p||\frac{p+q}{2}) + \frac{1}{2}D_{KL}(q||\frac{p+q}{2}) \end{equation}\]</span></p>
+<p>식 (8)에서 우변에 <span class="math inline">\(-log(4)\)</span> 를 더해주고 빼주면, <span class="math display">\[\begin{equation} C(G) = -log(4) + D_{KL}(p_{data}||\frac{p_{data}+p_{g}}{2}) + D_{KL}(p_{g}||\frac{p_{data}+p_{g}}{2}) \end{equation}\]</span></p>
+<p>으로 정리할 수 있다. 여기서 <span class="math inline">\(D_{KL}(p_{data}||\frac{p_{data}+p_{g}}{2}) + D_{KL}(p_{g}||\frac{p_{data}+p_{g}}{2}) = 2\,JSD(p_{data}||p_{g})\)</span> 인데, <span class="math inline">\(JSD\)</span> 는 <span class="math inline">\(p_{data} = p_{g}\)</span> 일 때 최소값 <span class="math inline">\(0\)</span> 을 갖는다. 따라서, <span class="math display">\[ \begin{equation}\displaystyle\min_{G} C(G) = -log(4),\;when\;p_{data} = p_{g} \end{equation}\]</span></p>
+<p>따라서, <strong>Adversarial Loss</strong> 인 식 (1)을 optimize 했을 때 <strong>Generator</strong>가 추적하는 분포인 <span class="math inline">\(p_{g}\)</span> 는 우리가 알고자하는 대상 분포인 <span class="math inline">\(p_{data}\)</span> 와 같아진다는 결론을 얻어낼 수 있다.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>힘들었다...</p>
 
     </div>
 
@@ -357,6 +366,7 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/GAN/" rel="tag"># GAN</a>
+              <a href="/tags/Computer-Vision/" rel="tag"># Computer Vision</a>
           </div>
 
         
@@ -429,6 +439,25 @@
 
 
 
+<script>
+if (document.querySelectorAll('.pdf-container').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2.2.4/pdfobject.min.js', () => {
+    document.querySelectorAll('.pdf-container').forEach(element => {
+      PDFObject.embed(element.dataset.target, element, {
+        pdfOpenParams: {
+          navpanes : 0,
+          toolbar  : 0,
+          statusbar: 0,
+          pagemode : 'thumbs',
+          view     : 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height   : element.dataset.height
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
 
 
 
