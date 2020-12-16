@@ -23,24 +23,26 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.1.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="오늘 다룰 논문은 Image to Image Translation(I2I)에서 Reconstruction Loss의 개념을 추가하여 아주 높은 성능을 달성했던 CycleGAN 이다. 최근까지 Reconstruction Loss 는 사용되고 있으며, 앞으로도 이미지 번역(I2I Translation), 이미지 합성(Image Synthesis) 과 같은 분야">
+<meta name="description" content="오늘 다룰 논문은 2019 NeurIPS 에서 뜨거운 관심을 받았던 Neural Ordinary Differential Equations 이다. 이미 논문 제목에서 나와있듯이 Ordinary Differential Equations, 상미분방정식에 대해서 다룬다. 기존에 layer 단위로 쌓아서 성능을 높혀왔던 Neural Network 구조의 틀을 부수는">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[CycleGAN] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks">
-<meta property="og:url" content="http://example.com/2020/12/15/CycleGAN/index.html">
+<meta property="og:title" content="[NeuralODE] Neural Ordinary Differential Equations">
+<meta property="og:url" content="http://example.com/2020/12/16/NeuralODE/index.html">
 <meta property="og:site_name" content="Andu&#39;s Blog">
-<meta property="og:description" content="오늘 다룰 논문은 Image to Image Translation(I2I)에서 Reconstruction Loss의 개념을 추가하여 아주 높은 성능을 달성했던 CycleGAN 이다. 최근까지 Reconstruction Loss 는 사용되고 있으며, 앞으로도 이미지 번역(I2I Translation), 이미지 합성(Image Synthesis) 과 같은 분야">
+<meta property="og:description" content="오늘 다룰 논문은 2019 NeurIPS 에서 뜨거운 관심을 받았던 Neural Ordinary Differential Equations 이다. 이미 논문 제목에서 나와있듯이 Ordinary Differential Equations, 상미분방정식에 대해서 다룬다. 기존에 layer 단위로 쌓아서 성능을 높혀왔던 Neural Network 구조의 틀을 부수는">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2020/12/15/CycleGAN/horse_zebra.png">
-<meta property="article:published_time" content="2020-12-15T05:40:35.000Z">
-<meta property="article:modified_time" content="2020-12-15T07:50:32.591Z">
+<meta property="og:image" content="http://example.com/2020/12/16/NeuralODE/deep_neural_network.png">
+<meta property="og:image" content="http://example.com/2020/12/16/NeuralODE/residual_unit.png">
+<meta property="og:image" content="http://example.com/2020/12/16/NeuralODE/resnet.png">
+<meta property="og:image" content="http://example.com/2020/12/16/NeuralODE/resnet_many.png">
+<meta property="article:published_time" content="2020-12-16T05:55:27.000Z">
+<meta property="article:modified_time" content="2020-12-16T08:31:09.912Z">
 <meta property="article:author" content="Andu">
-<meta property="article:tag" content="GAN">
-<meta property="article:tag" content="Computer Vision">
+<meta property="article:tag" content="Deep Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/12/15/CycleGAN/horse_zebra.png">
+<meta name="twitter:image" content="http://example.com/2020/12/16/NeuralODE/deep_neural_network.png">
 
 
-<link rel="canonical" href="http://example.com/2020/12/15/CycleGAN/">
+<link rel="canonical" href="http://example.com/2020/12/16/NeuralODE/">
 
 
 <script class="page-configurations">
@@ -52,7 +54,7 @@
     lang   : 'en'
   };
 </script>
-<title>[CycleGAN] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks | Andu's Blog</title>
+<title>[NeuralODE] Neural Ordinary Differential Equations | Andu's Blog</title>
   
 
 
@@ -177,7 +179,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#image-to-image-translation"><span class="nav-number">1.</span> <span class="nav-text">Image to Image Translation</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#neural-network"><span class="nav-number">1.</span> <span class="nav-text">Neural Network</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#residual-network"><span class="nav-number">2.</span> <span class="nav-text">Residual Network</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ordinary-differential-equations"><span class="nav-number">3.</span> <span class="nav-text">Ordinary Differential Equations</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -253,7 +255,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/15/CycleGAN/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/16/NeuralODE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -266,7 +268,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [CycleGAN] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks
+          [NeuralODE] Neural Ordinary Differential Equations
         </h1>
 
         <div class="post-meta-container">
@@ -278,7 +280,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2020-12-15 14:40:35 / Modified: 16:50:32" itemprop="dateCreated datePublished" datetime="2020-12-15T14:40:35+09:00">2020-12-15</time>
+      <time title="Created: 2020-12-16 14:55:27 / Modified: 17:31:09" itemprop="dateCreated datePublished" datetime="2020-12-16T14:55:27+09:00">2020-12-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -286,7 +288,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Computer-Vision/" itemprop="url" rel="index"><span itemprop="name">Computer Vision</span></a>
+          <a href="/categories/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
         </span>
     </span>
 
@@ -299,8 +301,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2020/12/15/CycleGAN/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/15/CycleGAN/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/12/16/NeuralODE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/16/NeuralODE/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -314,11 +316,32 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>오늘 다룰 논문은 <strong>Image to Image Translation(I2I)</strong>에서 <strong>Reconstruction Loss</strong>의 개념을 추가하여 아주 높은 성능을 달성했던 <strong>CycleGAN</strong> 이다. 최근까지 <strong>Reconstruction Loss</strong> 는 사용되고 있으며, 앞으로도 <strong>이미지 번역(I2I Translation), 이미지 합성(Image Synthesis)</strong> 과 같은 분야에서 계속 사용될 것으로 보여지기 때문에 그 시초격의 논문인 <strong><em>Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks</em></strong> 을 리뷰해보고자 한다. 앞서 보았던 <a href="/2020/12/14/GAN/" title="[GAN]">[GAN]</a> 과 같이 최대한 수식적으로 접근하도록 노력해보겠다. <a id="more"></a></p>
+        <p>오늘 다룰 논문은 <strong><em>2019 NeurIPS</em></strong> 에서 뜨거운 관심을 받았던 <strong><em>Neural Ordinary Differential Equations</em></strong> 이다. 이미 논문 제목에서 나와있듯이 Ordinary Differential Equations, 상미분방정식에 대해서 다룬다. 기존에 layer 단위로 쌓아서 성능을 높혀왔던 Neural Network 구조의 틀을 부수는 듯한 굉장히 신선한 접근을 다룬다. 많은 사람들이 해당 논문의 수식에 의해서 중간에 포기를 하는 경우가 많다. 그래서 최대한 많은 사람들이 이 논문을 완벽히 이해할 수 있도록 노력해서 정리해보겠다. <a id="more"></a></p>
 <hr />
-<h1 id="image-to-image-translation">Image to Image Translation</h1>
-<p>우선 <strong>Image to Image Translation</strong> 이란 무엇인가? 말 그대로 어떤 이미지를 다른 형식의 이미지로 번역/변환 하는 것이다. 예를 들어, 말의 이미지를 얼룩말의 이미지로 바꾸거나, 풍경 사진을 고흐의 화풍으로 변환하는 것을 말한다. <img src="/2020/12/15/CycleGAN/horse_zebra.png" class="" title="말과 얼룩말 싸우면 누가 이길까..."> 즉, 이미지에서의 핵심이 되는 <strong>feature</strong>(말의 모양, 풍경 등)들은 그대로 둔 채, 이미지의 색감이나 텍스쳐와 같은 성질만을 변화시키는 것을 목적으로 한다.</p>
-<p>이를 좀 더 수학적으로 생각해보자. 어떤 두 <strong>domain</strong> <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> 가 존재할 때, <span class="math inline">\(X\)</span> 에서 sample된 확률 변수 <span class="math inline">\(x\)</span>를 가지고</p>
+<h1 id="neural-network">Neural Network</h1>
+<p>아주 간단하게 <strong>Neural Network</strong>에 대한 나의 주관적인 생각을 언급하고 넘어가도록 하겠다. <strong><em>(매우 중요)</em></strong> <strong>Neural Network</strong>는 input과 output의 관계 함수이다. Neural Network에는 <span class="math inline">\(Wx\)</span> 와 같은 선형적인 연산과, <span class="math inline">\(relu(x)\)</span>와 같은 비선형적인 연산을 매우 많이 포함하고있다. 즉, 우리는 Neural Network의 parameter를 잘 조정함으로써 원하는 함수를, 그 함수가 어떠한 형태일지라도 근사해낼 수 있는 것이다. (이 말이 모든 문제를 neural network로 해결할 수 있다는 말은 아니다. 합수의 입력과 출력의 관계가 추상적일지라도 명백히 존재한다면 neural network로 그 함수를 근사해낼 수 있다는 말이다.)</p>
+<p>즉, Neural Network는 우리가 어떤 입력과 출력의 관계에 대해서 가정을 할 경우 그 가정에 가장 합당한 함수를 근사해내는 것이라고 생각할 수 있다. 예를 들어, "어떤 사진을 입력으로 넣었을 때 감자인지 고구마인지 구분할 수 있을거야"와 같은 가정 말이다.</p>
+<h1 id="residual-network">Residual Network</h1>
+<p><strong>Neural ODE</strong>의 이해를 돕기 위해서 <strong>resnet</strong> 의 구조를 살펴볼 필요가 있다. <strong>resnet</strong>은 <strong>ImageNet Challenge</strong> 에서 처음 등장했으며, 기존에 layer가 많아질수록 네트워크 하부에 전달되는 gradient가 작아지는 문제로 인해 더이상 깊은 층을 쌓기 힘들었던 <strong>Deep Neural Networks</strong>의 한계를 깨버린 아주 괄목할 만한 성과를 이뤄낸 구조이다. 그 방법은 매우 심플했다. hidden layer의 activation을 다음 hidden layer의 input으로 직접 주입하는 것이 아닌, <strong>변화량</strong>으로 고려한것이다. 아래 그림을 보도록 하자.</p>
+<img src="/2020/12/16/NeuralODE/deep_neural_network.png" class="" width="500" title="그림 그리는게 젤 힘듦...">
+<p>위 그림은 기존의 Deep Neural Network의 구조이다. 단순히 hidden layer <span class="math inline">\(W_{t}\)</span> 의 output(activation)을 hidden layer <span class="math inline">\(W_{t+1}\)</span>의 input으로 연결하는 구조이다. 여기다가 <strong>resnet</strong>에서는 아래의 Residual Unit 구조를 적용한다.</p>
+<img src="/2020/12/16/NeuralODE/residual_unit.png" class="" width="300" title="그림 그리는게 젤 힘듦...">
+<p>residual unit을 적용한 <strong>resnet</strong>의 구조는 아래 그림과 같다. <img src="/2020/12/16/NeuralODE/resnet.png" class="" width="500" title="그림 그리는게 젤 힘듦..."></p>
+<p>다시 말해, hidden layer <span class="math inline">\(W_{t}\)</span> 의 output(activation)을 <span class="math inline">\(h_{t}\)</span> 에서 <span class="math inline">\(h_{t+1}\)</span>로 가는 변화량으로 보겠다는 것이다. 이를 수식으로 살짝 표현하면 아래와 같이 쓸 수 있다.</p>
+<p><span class="math display">\[\begin{equation} h_{t+1} = h_{t} + f(h_{t}, \theta_{t}) \end{equation}\]</span></p>
+<p>여기서 위 <strong>resnet</strong>의 Depth가 매우 깊어진다면 어떨까? 그 식은 <span class="math inline">\(h\)</span> 를 <span class="math inline">\(t\)</span>에 대해서 미분한 식과 매우 유사할 것이다. 왜 그런 것인지 아래 식을 통해 납득해보자.</p>
+<p><span class="math display">\[\begin{split}
+h_{t+1} - h_{t} = f(h_{t}, \theta_{t})\\\\
+\frac{h_{t+1} - h_{t}}{(t+1) - t} = f(h_{t}, \theta_{t})\\\\
+\end{split}\]</span></p>
+<p>여기서 layer가 매우 많아진다는 것은 <span class="math inline">\(h_{t+1}\)</span> 과 <span class="math inline">\(h_{t}\)</span> 사이의 간격이 매우 좁아진다는 것을 의미한다. layer마다의 간격이 매우 좁아지면 아래 그림과 같이 input과 output을 연결하는 hidden layer들이 무수히 많아진다는 것을 뜻하고, 이는 hidden layer의 output(activation)이 <strong>순간변화율에</strong> 가까워진다고 생각할 수 있다.</p>
+<img src="/2020/12/16/NeuralODE/resnet_many.png" class="" width="400" title="그림 그리는게 젤 힘듦...">
+<p><span class="math display">\[\begin{equation} \frac{dh(t)}{dt} = f(h(t), t, \theta) \end{equation}\]</span> 우리는 이를 위 식(2)와 같이 미분방정식의 형식으로 표현할 수 있다. (사실 위 식 (1)에서 <span class="math inline">\(t+1 \to t\)</span>로 보내준 것이다.) 다시 말해, <strong>resnet</strong>은 우리가 알고 싶은 input과 output의 관계 식에 대한 <strong>미분방정식</strong>을 <strong>discrete</strong>힌 형태로(이산적인) 근사한 함수라고 할 수 있다.</p>
+<p>여기서 한번 정리하고 넘어가자. 우리는 입력과 출력의 관계인 함수를 근사하고자 <strong>Neural Network</strong>를 이용한다. 그 중에서도 <strong>ResNet</strong>의 구조는 해당 함수를 근사하기 위해 입력과 출력의 관계 함수에 대한 미분방정식을 이산적으로 근사한 형태로 해석할 수 있다. 아직 이해가 가지 않더라도 걱정하지 말자.</p>
+<h1 id="ordinary-differential-equations">Ordinary Differential Equations</h1>
+<p>위 식(2)와 같은 미분방정식은 특별하게 <strong>Ordinary Differential Equation(ODE), 상미분방정식</strong> 이라고 부른다. 함수를 결정하는 독립적인 변수가 하나인 경우에 이와 같이 부르며, 식 (2)에서는 독립 변수가 <span class="math inline">\(t\)</span>밖에 존재하지 않으므로 <strong>ODE</strong>라고 부르는 것이다.</p>
+<p>실제로 많은 자연 현상이 미분방정식의 형태로 표현되는데, 대표적으로 슈뢰딩거의 파동방정식이 그러하다. 하지만 복잡한 형식의 미분방정식은 풀기 어렵고, 미분방정식의 해가 되는 함수의 근사 함수라도 얻고자 하는 시도가 활발하다. 대표적인 방법으로 <strong>Euler Discretization Method</strong>가 있다. (우리 학과는 미적분학이 필수 교과로 포함되어 있지 않기 떄문에 설명하고 넘어가겠다.)</p>
+<p>아래의 미분방정식을 풀어보자. <span class="math display">\[\displaystyle \frac{dy}{dx} = y\, , \,\,\,\, y(0)=1 \]</span></p>
 
     </div>
 
@@ -328,22 +351,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/GAN/" rel="tag"># GAN</a>
-              <a href="/tags/Computer-Vision/" rel="tag"># Computer Vision</a>
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/14/GAN/" rel="prev" title="[GAN] Generative Adversarial Nets">
-                  <i class="fa fa-chevron-left"></i> [GAN] Generative Adversarial Nets
+                <a href="/2020/12/15/CycleGAN/" rel="prev" title="[CycleGAN] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks">
+                  <i class="fa fa-chevron-left"></i> [CycleGAN] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/12/16/NeuralODE/" rel="next" title="[NeuralODE] Neural Ordinary Differential Equations">
-                  [NeuralODE] Neural Ordinary Differential Equations <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -499,9 +518,9 @@ if (document.querySelectorAll('.pdf-container').length) {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://example.com/2020/12/15/CycleGAN/";
-    this.page.identifier = "2020/12/15/CycleGAN/";
-    this.page.title = "[CycleGAN] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks";
+    this.page.url = "http://example.com/2020/12/16/NeuralODE/";
+    this.page.identifier = "2020/12/16/NeuralODE/";
+    this.page.title = "[NeuralODE] Neural Ordinary Differential Equations";
     };
   NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {
